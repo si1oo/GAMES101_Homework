@@ -212,10 +212,10 @@ inline Intersection Triangle::getIntersection(Ray ray)
 {
     Intersection inter;
 
-    if (dotProduct(ray.direction, normal) > 0) //背面剔除
+    if (dotProduct(ray.direction, normal) > 0) //鑳岄潰鍓旈櫎
         return inter;
 
-    //MT算法
+    //MT绠楁硶
     double u, v, t_tmp = 0; 
     Vector3f pvec = crossProduct(ray.direction, e2);
     double det = dotProduct(e1, pvec);
@@ -235,9 +235,12 @@ inline Intersection Triangle::getIntersection(Ray ray)
     if (v < 0 || u + v > 1)
         return inter;
 
-    t_tmp = dotProduct(e2, qvec) * det_inv; //交点位置
+    t_tmp = dotProduct(e2, qvec) * det_inv; //浜ょ偣浣嶇疆
+
+    if(t_tmp < 0)
+      return inter;
     
-    //设置交点信息
+    //璁剧疆浜ょ偣淇℃伅
     inter.happened = true;
     inter.coords = ray(t_tmp);
     inter.normal = normal;
