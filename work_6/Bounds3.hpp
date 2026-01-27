@@ -93,7 +93,7 @@ class Bounds3
 inline bool Bounds3::IntersectP(const Ray& ray, const Vector3f& invDir,
                                 const std::array<int, 3>& dirIsNeg) const
 {
-    //·ÖÀëÖá¶¨Àí,ÇĞ»»³Éµ¥Î¬Çó½â
+    //åˆ†ç¦»è½´å®šç†,åˆ‡æ¢æˆå•ç»´æ±‚è§£
     float tx_max = (pMax.x - ray.origin.x) * invDir.x;
     float tx_min = (pMin.x - ray.origin.x) * invDir.x;
     float ty_max = (pMax.y - ray.origin.y) * invDir.y;
@@ -101,16 +101,16 @@ inline bool Bounds3::IntersectP(const Ray& ray, const Vector3f& invDir,
     float tz_max = (pMax.z - ray.origin.z) * invDir.z;
     float tz_min = (pMin.z - ray.origin.z) * invDir.z;
 
-    //¸ù¾İ¹âÏß·½ÏòÈ·¶¨´óĞ¡
+    //æ ¹æ®å…‰çº¿æ–¹å‘ç¡®å®šå¤§å°
     if (dirIsNeg[0] == false) std::swap(tx_max, tx_min);
     if (dirIsNeg[1] == false) std::swap(ty_max, ty_min);
     if (dirIsNeg[2] == false) std::swap(tz_min, tz_max);
 
-    //»ñµÃt_enterºÍt_exit
+    //è·å¾—t_enterå’Œt_exit
     float t_enter = std::max(tx_min, std::max(ty_min, tz_min));
     float t_exit = std::min(tx_max, std::min(ty_max, tz_max));
     
-    return (t_enter < t_exit && t_enter >= 0);
+    return (t_enter < t_exit && t_exit >= 0);
 }
 
 inline Bounds3 Union(const Bounds3& b1, const Bounds3& b2)
